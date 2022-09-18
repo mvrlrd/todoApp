@@ -4,7 +4,19 @@ import model.Note;
 import model.Notes;
 
 public class AddNewNoteCommand implements ICommand {
-    private final Note note;
+    private Note note;
+
+    public AddNewNoteCommand(){
+    }
+
+    public void setNote(Note note) {
+        this.note = note;
+    }
+
+    public Note getNote() {
+        return note;
+    }
+
     public AddNewNoteCommand(Note note){
         this.note = note;
     }
