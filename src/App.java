@@ -1,7 +1,4 @@
-import model.Body;
-import model.Header;
-import model.Note;
-import model.Priority;
+import model.*;
 
 import java.util.Scanner;
 
@@ -16,7 +13,8 @@ public class App {
                     '1' - добавить заметку
                     '2' - удалить заметку
                     '3' - открыть заметку
-                    '4' - изменить заметку""");
+                    '4' - изменить заметку
+                    '0' - закрыть программу""");
             int command = scanner.nextInt();
 
             switch (command) {
@@ -30,7 +28,9 @@ public class App {
                     App.searchByNumber(scanner);
                     break;
                 case 4:
-                    App.searchByNumber(scanner);
+                    App.changeNote(scanner);
+                    break;
+                case 0:
                     break;
                 default:
                     break;
@@ -46,11 +46,10 @@ public class App {
         System.out.println("введите стиль заголовка 0-5");
         int style = scanner.nextInt();
         System.out.println("введите текст заметки");
-
         String text = scanner.next();
         Note note = new Note(new Header(headerText, style), new Body(text), Priority.GREEN);
         presenter.addNote(note);
-        System.out.println("_____________ЗАМЕТКА "+headerText+" ДОБАВЛЕНА_____________");
+        System.out.println("_____________ЗАМЕТКА " + headerText + " ДОБАВЛЕНА_____________");
     }
     private static void deleteNote(Scanner scanner){
         System.out.println();
@@ -80,10 +79,12 @@ public class App {
         System.out.println("____________ИЗМЕНИТЬ ЗАМЕТКУ_____________");
         presenter.showAllHeaders();
         System.out.println("введите номер заметки, которую нужно изменить");
-        int numberToOpen = scanner.nextInt();
-        presenter.showNote(numberToOpen-1);
+        int index = scanner.nextInt()-1;
+        presenter.showNote(index);
+        System.out.println("введите новый текст");
         String newText = scanner.next();
-
+        presenter.changeNote(new Pair(index, newText));
+        System.out.println("_________________ЗАМЕТКА ИЗМЕНЕНА____________________");
     }
 
 

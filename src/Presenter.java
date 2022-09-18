@@ -1,16 +1,15 @@
-import commands.AddNewNoteCommand;
-import commands.DeleteNoteCommand;
-import commands.ShowAllHeadersCommand;
-import commands.ShowNoteByNumberCommand;
+import commands.*;
 import model.Note;
 import model.Notes;
+import model.Pair;
 
 public class Presenter {
     private final Notes notes = Notes.getInstance();
-    private final AddNewNoteCommand addNewNoteCommand = new AddNewNoteCommand(notes);
-    private final DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(notes);
-    private final ShowNoteByNumberCommand showNoteByNumberCommand = new ShowNoteByNumberCommand(notes);
-    private final ShowAllHeadersCommand showAllHeadersCommand = new ShowAllHeadersCommand(notes);
+    private final ICommand<Note> addNewNoteCommand = new AddNewNoteCommand(notes);
+    private final ICommand<Integer> deleteNoteCommand = new DeleteNoteCommand(notes);
+    private final ICommand<Integer> showNoteByNumberCommand = new ShowNoteByNumberCommand(notes);
+    private final ICommand<Object> showAllHeadersCommand = new ShowAllHeadersCommand(notes);
+    private final ICommand<Pair> changeNoteCommand = new ChangeNoteCommand(notes);
 
 
     public void addNote(Note note){
@@ -27,6 +26,10 @@ public class Presenter {
 
     public void showAllHeaders(){
         showAllHeadersCommand.execute(null);
+    }
+
+    public void changeNote(Pair pair){
+        changeNoteCommand.execute(pair);
     }
 
 }
