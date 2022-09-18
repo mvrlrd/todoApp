@@ -1,40 +1,40 @@
 import model.*;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
-    public static final Presenter presenter = new Presenter();
+    private final static String NEKORREKTNIY_VVOD = "некорректный ввод! Нужно ввести номер команды: 1-4,0";
+    private final static String BYE = "BYE BYE";
+    private static final Presenter presenter = new Presenter();
     public static void main(String[] args) {
 
-
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
+        Scanner scanner = new Scanner(System.in).useDelimiter("\n");
+        int code = -1;
+        while (code!=0) {
             System.out.println("""
                     '1' - добавить заметку
                     '2' - удалить заметку
                     '3' - открыть заметку
                     '4' - изменить заметку
                     '0' - закрыть программу""");
-            int command = scanner.nextInt();
-
-            switch (command) {
-                case 1:
-                    App.addNewNote(scanner);
-                    break;
-                case 2:
-                    App.deleteNote(scanner);
-                    break;
-                case 3:
-                    App.searchByNumber(scanner);
-                    break;
-                case 4:
-                    App.changeNote(scanner);
-                    break;
-                case 0:
-                    break;
-                default:
-                    break;
+            try {
+                code = scanner.nextInt();
+                switch (code) {
+                    case 1 -> App.addNewNote(scanner);
+                    case 2 -> App.deleteNote(scanner);
+                    case 3 -> App.searchByNumber(scanner);
+                    case 4 -> App.changeNote(scanner);
+                    case 0 -> System.out.println(BYE);
+                    default -> {
+                        System.out.println(NEKORREKTNIY_VVOD);
+                    }
+                }
+            }catch (InputMismatchException e){
+                e.printStackTrace();
+                scanner.nextLine();
             }
+
         }
     }
 
