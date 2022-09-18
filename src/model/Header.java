@@ -28,6 +28,7 @@ public class Header {
         this.style = style;
     }
 
+
     @Override
     public String toString() {
     StringBuilder str = new StringBuilder();
@@ -36,5 +37,8 @@ public class Header {
             str.append(" ".repeat(Math.max(0, style)));
         }
         return str.toString().toUpperCase();
+    }
+    public boolean equals(String text){
+        return this.text.equalsIgnoreCase(text);
     }
 }
