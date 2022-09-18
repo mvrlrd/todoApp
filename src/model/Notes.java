@@ -21,17 +21,8 @@ public class Notes {
     public void deleteNote(int index){
         noteList.remove(index);
     }
-    public Note showNote(String header){
-        return getNoteByHeader(header);
-    }
-
-    private Note getNoteByHeader(String text){
-        for (Note note : noteList){
-            if (note.header.equals(text)){
-                return note;
-            }
-        }
-        return null;
+    public void showNote(int index){
+        System.out.println(noteList.get(index));
     }
 
     public void showAllHeaders(){

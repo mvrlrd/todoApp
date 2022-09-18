@@ -15,17 +15,22 @@ public class App {
             System.out.println("""
                     '1' - добавить заметку
                     '2' - удалить заметку
-                    '3' - найти заметку по заголовку""");
-            String command = scanner.next();
+                    '3' - открыть заметку
+                    '4' - изменить заметку""");
+            int command = scanner.nextInt();
 
             switch (command) {
-                case "1":
+                case 1:
                     App.addNewNote(scanner);
                     break;
-                case "2":
+                case 2:
                     App.deleteNote(scanner);
                     break;
-                case "3":
+                case 3:
+                    App.searchByNumber(scanner);
+                    break;
+                case 4:
+                    App.searchByNumber(scanner);
                     break;
                 default:
                     break;
@@ -59,4 +64,27 @@ public class App {
         presenter.showAllHeaders();
         System.out.println("__________________________________________");
     }
+
+    private static void searchByNumber(Scanner scanner){
+        System.out.println();
+        System.out.println("____________НАЙТИ ЗАМЕТКУ ПО НОМЕРУ_____________");
+        presenter.showAllHeaders();
+        System.out.println("введите номер заметки, которую нужно открыть");
+        int numberToOpen = scanner.nextInt();
+        presenter.showNote(numberToOpen-1);
+        System.out.println("________________________________________________");
+    }
+
+    private static void changeNote(Scanner scanner){
+        System.out.println();
+        System.out.println("____________ИЗМЕНИТЬ ЗАМЕТКУ_____________");
+        presenter.showAllHeaders();
+        System.out.println("введите номер заметки, которую нужно изменить");
+        int numberToOpen = scanner.nextInt();
+        presenter.showNote(numberToOpen-1);
+        String newText = scanner.next();
+
+    }
+
+
 }

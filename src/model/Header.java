@@ -38,7 +38,4 @@ public class Header {
         }
         return str.toString().toUpperCase();
     }
-    public boolean equals(String text){
-        return this.text.equalsIgnoreCase(text);
-    }
 }

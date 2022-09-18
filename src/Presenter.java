@@ -1,7 +1,7 @@
 import commands.AddNewNoteCommand;
 import commands.DeleteNoteCommand;
 import commands.ShowAllHeadersCommand;
-import commands.ShowNoteCommand;
+import commands.ShowNoteByNumberCommand;
 import model.Note;
 import model.Notes;
 
@@ -9,7 +9,7 @@ public class Presenter {
     private final Notes notes = Notes.getInstance();
     private final AddNewNoteCommand addNewNoteCommand = new AddNewNoteCommand(notes);
     private final DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(notes);
-    private final ShowNoteCommand showNoteCommand = new ShowNoteCommand(notes);
+    private final ShowNoteByNumberCommand showNoteByNumberCommand = new ShowNoteByNumberCommand(notes);
     private final ShowAllHeadersCommand showAllHeadersCommand = new ShowAllHeadersCommand(notes);
 
 
@@ -21,8 +21,8 @@ public class Presenter {
         deleteNoteCommand.execute(index);
     }
 
-    public void showNote(String headerText){
-        showNoteCommand.execute(headerText);
+    public void showNote(int index){
+        showNoteByNumberCommand.execute(index);
     }
 
     public void showAllHeaders(){

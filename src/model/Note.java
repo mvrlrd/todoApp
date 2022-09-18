@@ -11,5 +11,10 @@ public class Note {
         this.priority = priority;
     }
 
-
+    @Override
+    public String toString() {
+        return header.toString()+"\n" +
+                priority.name()+"\n"+
+                body.toString();
+    }
 }
