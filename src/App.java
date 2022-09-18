@@ -18,6 +18,7 @@ public class App {
                     '2' - удалить заметку
                     '3' - открыть заметку
                     '4' - изменить заметку
+                    '5' - все заметки
                     '0' - закрыть программу""");
             try {
                 code = scanner.nextInt();
@@ -26,6 +27,7 @@ public class App {
                     case 2 -> App.deleteNote(scanner);
                     case 3 -> App.searchByNumber(scanner);
                     case 4 -> App.changeNote(scanner);
+                    case 5 -> App.showAll(scanner);
                     case 0 -> System.out.println(BYE);
                     default -> {
                         System.out.println(NEKORREKTNIY_VVOD);
@@ -63,7 +65,12 @@ public class App {
         int style = getInputNumber(scanner, "Стиль текста может быть 0-"+STYLES_NUM,STYLES_NUM);
         System.out.println("введите текст заметки");
         String text = scanner.next();
+        System.out.println("выберите приоритет заметки 2 - High, 1 - Low");
+        int prioritet = getInputNumber(scanner, "приоритет может быть 1 или 2", 2);
         Note note = new Note(new Header(headerText, style), new Body(text), Priority.LOW);
+        if (prioritet == 1) {
+            note.priority = Priority.HIGH;
+        }
         presenter.addNote(note);
         System.out.println("_____________ЗАМЕТКА " + headerText + " ДОБАВЛЕНА_____________");
     }
@@ -116,5 +123,14 @@ public class App {
         System.out.println("_________________ЗАМЕТКА ИЗМЕНЕНА____________________");
     }
 
+    private static void showAll(Scanner scanner){
+        System.out.println();
+        System.out.println("____________СПИСОК ВСЕХ ЗАМЕТОК_____________");
+        int size = presenter.showAllHeaders();
+        if (size==0) {
+            System.out.println("нет заметок");
+        }
+        System.out.println("________________________________________________");
+    }
 
 }
