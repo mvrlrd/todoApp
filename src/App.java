@@ -38,25 +38,37 @@ public class App {
         }
     }
 
-    private static void addNewNote(Scanner scanner){
+    private static void addNewNote(Scanner scanner) {
         System.out.println();
         System.out.println("____________ДОБАВЛЕНИЕ НОВОЙ ЗАМЕТКИ_____________");
         System.out.println("введите заголовок");
         String headerText = scanner.next();
         System.out.println("введите стиль заголовка 0-5");
-        int style = scanner.nextInt();
+        int style = getInputNumber(scanner, "Стиль текста может быть 0-5");
         System.out.println("введите текст заметки");
         String text = scanner.next();
         Note note = new Note(new Header(headerText, style), new Body(text), Priority.GREEN);
         presenter.addNote(note);
         System.out.println("_____________ЗАМЕТКА " + headerText + " ДОБАВЛЕНА_____________");
     }
+
+    private static int getInputNumber(Scanner scanner, String errorMsg) {
+        while (true)
+            try {
+                return scanner.nextInt();
+            } catch (InputMismatchException e) {
+                e.printStackTrace();
+                System.out.println(errorMsg);
+                scanner.nextLine();
+            }
+    }
+
     private static void deleteNote(Scanner scanner){
         System.out.println();
         System.out.println("____________УДАЛЕНИЕ ЗАМЕТКИ_____________");
         presenter.showAllHeaders();
         System.out.println("введите номер заметки, которую нужно удалить");
-        int numberToDelete = scanner.nextInt();
+        int numberToDelete = getInputNumber(scanner, "возможные индексы: ");
         presenter.deleteNote(numberToDelete-1);
         System.out.println("ЗАМЕТКА УДАЛЕНА");
         System.out.println("СПИСОК ЗАМЕТОК");
