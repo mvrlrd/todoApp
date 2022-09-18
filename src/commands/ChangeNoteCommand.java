@@ -3,7 +3,7 @@ package commands;
 import model.Notes;
 import model.Pair;
 
-public class ChangeNoteCommand implements ICommand<Pair> {
+public class ChangeNoteCommand implements ICommand<Pair,Boolean> {
     private final Notes notes;
 
     public ChangeNoteCommand(Notes notes) {
@@ -11,7 +11,8 @@ public class ChangeNoteCommand implements ICommand<Pair> {
     }
 
     @Override
-    public void execute(Pair pair) {
+    public Boolean execute(Pair pair) {
         notes.noteList.get(pair.index).body.setText(pair.text);
+        return true;
     }
 }

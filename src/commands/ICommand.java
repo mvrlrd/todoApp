@@ -2,6 +2,6 @@ package commands;
 
 import model.Note;
 
-public interface ICommand<T> {
-    void execute(T t);
+public interface ICommand<T,K> {
+    K execute(T t);
 }

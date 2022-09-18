@@ -4,14 +4,15 @@ import model.Notes;
 
 import java.util.ArrayList;
 
-public class ShowAllHeadersCommand implements ICommand<Object>{
+public class ShowAllHeadersCommand implements ICommand<Object, Integer>{
     private final Notes notes;
 
     public ShowAllHeadersCommand(Notes notes){
         this.notes = notes;
     }
     @Override
-    public void execute(Object o) {
+    public Integer execute(Object o) {
         notes.showAllHeaders();
+        return notes.noteList.size();
     }
 }

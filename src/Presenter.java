@@ -5,11 +5,11 @@ import model.Pair;
 
 public class Presenter {
     private final Notes notes = Notes.getInstance();
-    private final ICommand<Note> addNewNoteCommand = new AddNewNoteCommand(notes);
-    private final ICommand<Integer> deleteNoteCommand = new DeleteNoteCommand(notes);
-    private final ICommand<Integer> showNoteByNumberCommand = new ShowNoteByNumberCommand(notes);
-    private final ICommand<Object> showAllHeadersCommand = new ShowAllHeadersCommand(notes);
-    private final ICommand<Pair> changeNoteCommand = new ChangeNoteCommand(notes);
+    private final ICommand<Note, Boolean> addNewNoteCommand = new AddNewNoteCommand(notes);
+    private final ICommand<Integer, Boolean> deleteNoteCommand = new DeleteNoteCommand(notes);
+    private final ICommand<Integer, Note> showNoteByNumberCommand = new ShowNoteByNumberCommand(notes);
+    private final ICommand<Object, Integer> showAllHeadersCommand = new ShowAllHeadersCommand(notes);
+    private final ICommand<Pair, Boolean> changeNoteCommand = new ChangeNoteCommand(notes);
 
 
     public void addNote(Note note){
@@ -24,8 +24,8 @@ public class Presenter {
         showNoteByNumberCommand.execute(index);
     }
 
-    public void showAllHeaders(){
-        showAllHeadersCommand.execute(null);
+    public int showAllHeaders(){
+       return showAllHeadersCommand.execute(null);
     }
 
     public void changeNote(Pair pair){

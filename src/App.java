@@ -44,7 +44,7 @@ public class App {
         System.out.println("введите заголовок");
         String headerText = scanner.next();
         System.out.println("введите стиль заголовка 0-5");
-        int style = getInputNumber(scanner, "Стиль текста может быть 0-5");
+        int style = getInputNumber(scanner, "Стиль текста может быть 0-5",5);
         System.out.println("введите текст заметки");
         String text = scanner.next();
         Note note = new Note(new Header(headerText, style), new Body(text), Priority.GREEN);
@@ -52,10 +52,15 @@ public class App {
         System.out.println("_____________ЗАМЕТКА " + headerText + " ДОБАВЛЕНА_____________");
     }
 
-    private static int getInputNumber(Scanner scanner, String errorMsg) {
+    private static int getInputNumber(Scanner scanner, String errorMsg, int limit) {
         while (true)
             try {
-                return scanner.nextInt();
+                int num = scanner.nextInt();
+                if ((num>limit)||(num<0)){
+                    throw new InputMismatchException();
+                }else{
+                    return num;
+                }
             } catch (InputMismatchException e) {
                 e.printStackTrace();
                 System.out.println(errorMsg);
@@ -66,36 +71,48 @@ public class App {
     private static void deleteNote(Scanner scanner){
         System.out.println();
         System.out.println("____________УДАЛЕНИЕ ЗАМЕТКИ_____________");
-        presenter.showAllHeaders();
-        System.out.println("введите номер заметки, которую нужно удалить");
-        int numberToDelete = getInputNumber(scanner, "возможные индексы: ");
-        presenter.deleteNote(numberToDelete-1);
-        System.out.println("ЗАМЕТКА УДАЛЕНА");
-        System.out.println("СПИСОК ЗАМЕТОК");
-        presenter.showAllHeaders();
+        int size = presenter.showAllHeaders();
+        if (size>0) {
+            System.out.println("введите номер заметки, которую нужно удалить");
+            int numberToDelete = getInputNumber(scanner, "возможные индексы: 0-" + size, size);
+            presenter.deleteNote(numberToDelete - 1);
+            System.out.println("ЗАМЕТКА УДАЛЕНА");
+            System.out.println("СПИСОК ЗАМЕТОК");
+            presenter.showAllHeaders();
+        }else {
+            System.out.println("нет заметок");
+        }
         System.out.println("__________________________________________");
     }
 
     private static void searchByNumber(Scanner scanner){
         System.out.println();
         System.out.println("____________НАЙТИ ЗАМЕТКУ ПО НОМЕРУ_____________");
-        presenter.showAllHeaders();
-        System.out.println("введите номер заметки, которую нужно открыть");
-        int numberToOpen = scanner.nextInt();
-        presenter.showNote(numberToOpen-1);
+        int size = presenter.showAllHeaders();
+        if (size>0) {
+            System.out.println("введите номер заметки, которую нужно открыть 0-" + size);
+            int numberToOpen = getInputNumber(scanner, "сейчас доступны 0-" + size + " индексы", size);
+            presenter.showNote(numberToOpen - 1);
+        }else {
+            System.out.println("нет заметок");
+        }
         System.out.println("________________________________________________");
     }
 
     private static void changeNote(Scanner scanner){
         System.out.println();
         System.out.println("____________ИЗМЕНИТЬ ЗАМЕТКУ_____________");
-        presenter.showAllHeaders();
-        System.out.println("введите номер заметки, которую нужно изменить");
-        int index = scanner.nextInt()-1;
-        presenter.showNote(index);
-        System.out.println("введите новый текст");
-        String newText = scanner.next();
-        presenter.changeNote(new Pair(index, newText));
+        int size = presenter.showAllHeaders();
+        if (size>0) {
+            System.out.println("введите номер заметки, которую нужно изменить");
+            int index = scanner.nextInt() - 1;
+            presenter.showNote(index);
+            System.out.println("введите новый текст");
+            String newText = scanner.next();
+            presenter.changeNote(new Pair(index, newText));
+        }else{
+            System.out.println("нет заметок");
+        }
         System.out.println("_________________ЗАМЕТКА ИЗМЕНЕНА____________________");
     }
 
