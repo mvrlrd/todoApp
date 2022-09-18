@@ -3,23 +3,14 @@ package commands;
 import model.Note;
 import model.Notes;
 
-public class DeleteNoteCommand implements ICommand{
-    private  Note note;
-    public DeleteNoteCommand(){
-
-    }
-    public DeleteNoteCommand(Note note){
-        this.note = note;
-    }
-    public void setNote(Note note) {
-        this.note = note;
+public class DeleteNoteCommand implements ICommand<Integer>{
+    private final Notes notes;
+    public DeleteNoteCommand(Notes notes){
+        this.notes = notes;
     }
 
-    public Note getNote() {
-        return note;
-    }
     @Override
-    public void execute() {
-        Notes.getInstance().deleteNote(note);
+    public void execute(Integer index) {
+        notes.deleteNote(index);
     }
 }

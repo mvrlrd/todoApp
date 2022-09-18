@@ -18,8 +18,8 @@ public class Notes {
     public void addNewNote(Note note){
         noteList.add(note);
     }
-    public void deleteNote(Note note){
-        noteList.remove(note);
+    public void deleteNote(int index){
+        noteList.remove(index);
     }
     public Note showNote(String header){
         return getNoteByHeader(header);
@@ -32,6 +32,12 @@ public class Notes {
             }
         }
         return null;
+    }
+
+    public void showAllHeaders(){
+        for (Note note : noteList){
+            System.out.println((noteList.indexOf(note)+1)+"   -   "+note.header.toString()+" "+ note.priority.toString());
+        }
     }
 
 }
