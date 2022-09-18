@@ -1,6 +1,5 @@
 package commands;
 
-import model.Note;
 import model.Notes;
 
 public class DeleteNoteCommand implements ICommand<Integer, Boolean>{

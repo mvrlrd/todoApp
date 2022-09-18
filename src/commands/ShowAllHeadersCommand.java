@@ -2,8 +2,6 @@ package commands;
 
 import model.Notes;
 
-import java.util.ArrayList;
-
 public class ShowAllHeadersCommand implements ICommand<Object, Integer>{
     private final Notes notes;
 
